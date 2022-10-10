@@ -1,3 +1,7 @@
+// variant 6(2)
+// created by Panyshkin Andrey 
+// group 6213
+
 #include <iostream>
 #include "Graphics.h"
 #include <conio.h>

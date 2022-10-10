@@ -5,7 +5,7 @@
 
 using namespace std;
 
-struct rectangle {
+struct coordinates {
     int x, y;
 };
 
@@ -13,8 +13,6 @@ class BinImage {
 private:
     size_t _height, _width;
 public:
-    
-
 
     void set_height(size_t new_height) { _height = new_height; }
     void set_width(size_t new_width) { _width = new_width; }
@@ -30,7 +28,7 @@ public:
 
 class Point {
 private:
-    rectangle* _data;
+    coordinates* _data;
     size_t _size;
     size_t _capacity;
 public:
@@ -110,7 +108,7 @@ public:
     void set_data(size_t x, size_t y) {
         if (_size == _capacity) {
             _capacity += 10;
-            auto tmp = new rectangle[_capacity];
+            auto tmp = new coordinates[_capacity];
             move(_data, _data + _size, tmp);
             delete[] _data;
             _data = tmp;
@@ -134,7 +132,7 @@ public:
     Point(const Point& src) {
         _size = src._size;
         _capacity = src._capacity;
-        _data = new rectangle[_capacity];
+        _data = new coordinates[_capacity];
         for (int i = 0; i < _size; ++i) {
             _data[i] = src._data[i];
         }
@@ -142,7 +140,7 @@ public:
 
     Point(size_t capacity = 10) : _size(0), _capacity(capacity)
     {
-        _data = new rectangle[_capacity];
+        _data = new coordinates[_capacity];
     }
     ~Point() 
     {
@@ -259,4 +257,3 @@ int main() {
     system("pause");
     return 0;
 }
-

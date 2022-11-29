@@ -1,0 +1,27 @@
+﻿  Laba2_4.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Professional\VC\Tools\MSVC\14.32.31326\include\xutility(4504,27): warning C4244: =: преобразование "const _Ty" в "T", возможна потеря данных
+          with
+          [
+              _Ty=int
+          ]
+          and
+          [
+              T=float
+          ]
+C:\Users\student\Documents\Laba2_4\Laba2_4\BinImage.h(16): message : выполняется компиляция ссылки на экземпляр шаблон функции "_OutIt *std::fill_n<T*,int,int>(_OutIt,const _Diff,const _Ty &)"
+          with
+          [
+              _OutIt=float *,
+              T=float,
+              _Diff=int,
+              _Ty=int
+          ]
+C:\Users\student\Documents\Laba2_4\Laba2_4\BinImage.h(10): message : во время компиляции функции-члена класс шаблон "BinImage<float>::BinImage(int,int)"
+C:\Users\student\Documents\Laba2_4\Laba2_4\Laba2_4.cpp(326): message : выполняется компиляция ссылки на экземпляр шаблон функции "BinImage<float>::BinImage(int,int)"
+C:\Users\student\Documents\Laba2_4\Laba2_4\Laba2_4.cpp(326): message : выполняется компиляция ссылки на экземпляр класс шаблон функции "BinImage<float>"
+  Создание кода
+  15 of 125 functions (12.0%) were compiled, the rest were copied from previous compilation.
+    11 functions were new in current compilation
+    7 functions had inline decision re-evaluated but remain unchanged
+  Создание кода завершено
+  Laba2_4.vcxproj -> C:\Users\student\Documents\Laba2_4\x64\Release\Laba2_4.exe

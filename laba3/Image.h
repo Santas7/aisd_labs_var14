@@ -107,9 +107,10 @@ public:
 
     friend std::ostream& operator<<(std::ostream & os, const Image<T>& image) {
         if (image._height == 0 || image._width == 0 || image._height < 0 || image._width < 0) throw std::out_of_range("invalid height or width");
+        auto iterator = image._matrix.begin();
         for (int i = 0; i < image._height; ++i) {
-            for (int j = 0; j < image._width; ++j) {
-                os << image._matrix[i * image._width + j] << " ";
+            for (int j = 0; j < image._width; ++j, ++iterator) {
+                os << *iterator << " ";
             }
             os << std::endl;
         } return os;

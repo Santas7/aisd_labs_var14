@@ -21,23 +21,6 @@ public:
     auto begin() { return _matrix.begin(); }
     auto end() { return _matrix.end(); }
 
-    static void rprint_standart(const Image<T>& image, int x = 0, int y = 0) {
-        if (x < image._height) {
-            if (y < image._width) {
-                if (image._matrix[x*image._width +y] == 1) { std::cout << "1"; }
-                else { std::cout << "."; }
-                rprint_standart(image, x, ++y);
-            }
-            else {
-                std::cout << "\n";
-                rprint_standart(image, ++x, 0);
-            }
-        }
-        else {
-            return;
-        }
-    }
-
     Image<T> operator!() {
         Image<T> res(_height, _width);
 

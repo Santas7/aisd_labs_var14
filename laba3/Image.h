@@ -12,7 +12,6 @@ public:
         _matrix.resize(height * width);
         std::fill_n(begin(), height * width, 0);
     }
-
     Image(const Image& image) = default;
     ~Image() = default;
 
@@ -44,12 +43,12 @@ public:
 
         T val1;
 
-        for (auto& i : _matrix)
-            for (auto& j : i)
+        for (int i = 0; i < _height; ++i)
+            for (int j = 0; j < _width; ++j)
                 if (_matrix[i * _width + j] != 0) { val1 = _matrix[i * _width + j]; break; }
 
-        for (auto& i : _matrix) {
-            for (auto& j : i) {
+        for (int i = 0; i < _height; ++i) {
+            for (int j = 0; j < _width; ++j) {
                 if (_matrix[i * _width + j] == 0) { res._matrix[i * _width + j] = val1; }
                 else { res._matrix[i * _width + j] = 0; }
                 
@@ -60,40 +59,48 @@ public:
     Image<T> operator+(const Image<T>& image) {
         if (image._height != _height || image._width != _width) throw std::out_of_range("the main parameters of the image are not equal!");
         Image<T> new_image(_height, _width);
-        for (auto& i : new_image._matrix) {
-            for (auto& j : i) {
-                new_image._matrix[i * _width + j] = _matrix[i * _width + j] + image._matrix[i * _width + j];
+        auto iterator_1 = _matrix.begin();
+        auto iterator_2 = image._matrix.begin();
+        auto iterator_3 = new_image._matrix.begin();
+        for (int i = 0; i < new_image._height; ++i) {
+            for (int j = 0; j < new_image._width; ++j, ++iterator_1, ++iterator_2, ++iterator_3) {
+                *iterator_3 = *iterator_1 + *iterator_2;
             }
         } return new_image;
     }
     Image<T> operator*(const Image<T>& image) {
         if (image._height != _height || image._width != _width) throw std::out_of_range("the main parameters of the image are not equal!");
         Image<T> new_image(_height, _width);
-        for (auto& i : new_image._matrix) {
-            for (auto& j : i) {
-                new_image._matrix[i * _width + j] = _matrix[i * _width + j] * image._matrix[i * _width + j];
+        auto iterator_1 = _matrix.begin();
+        auto iterator_2 = image._matrix.begin();
+        auto iterator_3 = new_image._matrix.begin();
+        for (int i = 0; i < new_image._height; ++i) {
+            for (int j = 0; j < new_image._width; ++j, ++iterator_1, ++iterator_2, ++iterator_3) {
+                *iterator_3 = *iterator_1 * *iterator_2;
             }
         } return new_image;
     }
 
     Image<T> operator+(T value) {
         Image<T> new_image(_height, _width);
-
-        for (auto& i : new_image._matrix) {
-            for (auto& j : i) {
-                new_image._matrix[i * _width + j] = value + _matrix[i * _width + j];
+        auto iterator_1 = _matrix.begin();
+        auto iterator_2 = new_image._matrix.begin();
+        for (int i = 0; i < new_image._height; ++i) {
+            for (int j = 0; j < new_image._width; ++j, ++iterator_1, ++iterator_2) {
+                *iterator_2 = *iterator_1 + value;
             }
-        }
-        return new_image;
+        } return new_image;
     }
+
     Image<T> operator*(T value) {
         Image<T> new_image(_height, _width);
-        for (auto& i : new_image._matrix) {
-            for (auto& j : i) {
-                new_image._matrix[i * _width + j] = value * _matrix[i * _width + j];
-            }    
-        }
-        return new_image;
+        auto iterator_1 = _matrix.begin();
+        auto iterator_2 = new_image._matrix.begin();
+        for (int i = 0; i < new_image._height; ++i) {
+            for (int j = 0; j < new_image._width; ++j, ++iterator_1, ++iterator_2) {
+                *iterator_2 = *iterator_1 * value;
+            }
+        } return new_image;
     }
 
     Image<T>& operator=(const Image<T>& image) = default;
@@ -101,9 +108,10 @@ public:
     double fill_rate() const {
         if (_height == 0 || _width == 0) throw std::out_of_range("error! height or width = 0!");
         int count = 0, size = _height * _width;
-        for (auto& i : _matrix) {
-            for (auto& j : i) {
-                if (_matrix[i * _width + j])
+        auto iterator = _matrix.begin();
+        for (int i = 0; i < _height; ++i) {
+            for (int j = 0; j < _width; ++j, ++iterator) {
+                if (*iterator)
                     ++count;
             }
         } return (double)count / (double)size;
@@ -111,8 +119,8 @@ public:
 
     friend std::ostream& operator<<(std::ostream & os, const Image<T>& image) {
         if (image._height == 0 || image._width == 0 || image._height < 0 || image._width < 0) throw std::out_of_range("invalid height or width");
-        for (auto& i : image._matrix) {
-            for (auto& j : i) {
+        for (int i = 0; i < image._height; ++i) {
+            for (int j = 0; j < image._width; ++j) {
                 os << image._matrix[i * image._width + j] << " ";
             }
             os << std::endl;
@@ -128,15 +136,15 @@ public:
         if (x < 0 || x >= _height || y < 0 || y >= _width) throw std::out_of_range("error!");
         return _matrix[x * _width + y];
     }
-    
-    static void rdraw_rectangle(Image<T> image, int x_1, int y_1, int x_2, int y_2, int i = 0, int j = 0, T value = 1) {
-        if (i <= x_2 && i < image._height) {
-            if (j <= y_2 && j < image._width) {
-                image._matrix[i * image._width + j] = value;
-                rdraw_rectangle(image, x_1, y_1, x_2, y_2, i, ++j, value);
+
+    void rdraw_rectangle(int x_1, int y_1, int x_2, int y_2, int i = 0, int j = 0, T value = 1) {
+        if (i <= x_2 && i < _height) {
+            if (j <= y_2 && j < _width) {
+                _matrix[i * _width + j] = value;
+                rdraw_rectangle(x_1, y_1, x_2, y_2, i, ++j, value);
             }
             else {
-                rdraw_rectangle(image, x_1, y_1, x_2, y_2, ++i, y_1, value);
+                rdraw_rectangle(x_1, y_1, x_2, y_2, ++i, y_1, value);
             }
         }
     }

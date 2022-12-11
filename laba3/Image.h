@@ -43,14 +43,19 @@ public:
 
         T val1;
 
+        auto iterator_1 = _matrix.begin();
+        auto iterator_2 = res._matrix.begin();
+
         for (int i = 0; i < _height; ++i)
-            for (int j = 0; j < _width; ++j)
-                if (_matrix[i * _width + j] != 0) { val1 = _matrix[i * _width + j]; break; }
+            for (int j = 0; j < _width; ++j, ++iterator_1)
+                if (*iterator_1 != 0) { val1 = *iterator_1; break; }
+
+        iterator_1 = _matrix.begin();
 
         for (int i = 0; i < _height; ++i) {
-            for (int j = 0; j < _width; ++j) {
-                if (_matrix[i * _width + j] == 0) { res._matrix[i * _width + j] = val1; }
-                else { res._matrix[i * _width + j] = 0; }
+            for (int j = 0; j < _width; ++j, ++iterator_1, ++iterator_2) {
+                if (*iterator_1 == 0) { *iterator_2 = val1; }
+                else { *iterator_2 = 0; }
                 
             }
         } return res;

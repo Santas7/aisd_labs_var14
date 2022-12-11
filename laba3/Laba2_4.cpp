@@ -1,7 +1,7 @@
-﻿// л/р номер 2 вариант 6 (2)
+// л/р номер 3 вариант 6 (2)
 // Панюшкин Андрей Михайлович
 #include <iostream>
-#include "BinImage.h"
+#include "Image.h"
 #include "get_key.h"
 
 
@@ -20,7 +20,7 @@ void text_for_menu() {
 
 
 template<typename T>
-void menu(BinImage<T> image_1, BinImage<T> image_2) {
+void menu(Image<T> image_1, Image<T> image_2) {
     system("cls");
 
     std::cout << "[1] First image" << std::endl << "[2] Second image" << std::endl << "[Backspace] Exit" << std::endl << "--> ";
@@ -79,7 +79,7 @@ void menu(BinImage<T> image_1, BinImage<T> image_2) {
                     break;
                 case '3':
                     system("cls");
-                    //std::cout << image_1 << std::endl;
+                    std::cout << image_1 << std::endl;
                     std::cout << "[0] Back--> ";
                     break;
                 case '4':
@@ -194,7 +194,7 @@ void menu(BinImage<T> image_1, BinImage<T> image_2) {
                     break;
                 case '3':
                     system("cls");
-                    //std::cout << image_2 << std::endl;
+                    std::cout << image_2 << std::endl;
                     std::cout << "[0] Back--> ";
                     break;
                 case '4':
@@ -300,28 +300,28 @@ int create_data_type() {
             case '1':
             {
                 system("cls");
-                BinImage<bool> image_1(height, width), image_2(height, width);
+                Image<bool> image_1(height, width), image_2(height, width);
                 menu(image_1, image_2);
                 break;
             }
             case '2':
             {
                 system("cls");
-                BinImage<char> image_1(height, width), image_2(height, width);
+                Image<char> image_1(height, width), image_2(height, width);
                 menu(image_1, image_2);
                 break;
             }
             case '3':
             {
                 system("cls");
-                BinImage<short> image_1(height, width), image_2(height, width);
+                Image<short> image_1(height, width), image_2(height, width);
                 menu(image_1, image_2);
                 break;
             }
             case '4':
             {
                 system("cls");
-                BinImage<float> image_1(height, width), image_2(height, width);
+                Image<float> image_1(height, width), image_2(height, width);
                 menu(image_1, image_2);
                 break;
             }

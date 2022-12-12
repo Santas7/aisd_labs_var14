@@ -175,10 +175,10 @@ void menu(Image<T> image_1, Image<T> image_2) {
                         std::cout << "Value--> ";
                         std::cin >> value;
                         if (x_1 < 0 || y_1 < 0) {
-                            image_1.rdraw_rectangle(image_2, x_1, y_1, x_2, y_2, 0, 0, value);
+                            image_2.rdraw_rectangle(image_2, x_1, y_1, x_2, y_2, 0, 0, value);
                         }
                         else {
-                            image_1.rdraw_rectangle(image_2, x_1, y_1, x_2, y_2, x_1, y_1, value);
+                            image_2.rdraw_rectangle(image_2, x_1, y_1, x_2, y_2, x_1, y_1, value);
                         }
                         std::cout << "Okey.." << std::endl;
                     }
